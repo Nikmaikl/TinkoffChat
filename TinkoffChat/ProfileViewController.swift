@@ -22,22 +22,32 @@ class ProfileViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        print("\(#function) was processed")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        print("\(#function) was processed")
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
+        print("\(#function) was processed")
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        print("\(#function) was processed")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        print("\(#function) was processed")
     }
 }
 
