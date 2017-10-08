@@ -19,18 +19,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("\(editBtn.frame) in \(#function)")
-        
         imagePicker.delegate = self
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        // fatal error: unexpectedly found nil while unwrapping an Optional value
-        // потому что editBtn не успел инициализироваться и является nil
-        
-        // print(editBtn.frame)
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,10 +28,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // Позиция изменилась, так как AutoLayout вычислил constraints и кнопка встала на место согласно им
-        
-        print("\(editBtn.frame) in \(#function)")
     }
 
     @IBAction func editAction(_ sender: Any) {
@@ -97,6 +82,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func leftNavBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 }
