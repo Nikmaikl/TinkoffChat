@@ -50,7 +50,13 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: MessageTableViewCell
-        let indentifier = "MessageCell"
+        var indentifier = ""
+        
+        if messages[indexPath.row].incoming {
+            indentifier = "incomingMessage"
+        } else {
+            indentifier = "outgoingMessage"
+        }
         
         if let messageCell = tableView.dequeueReusableCell(withIdentifier: indentifier) as? MessageTableViewCell {
             cell = messageCell
