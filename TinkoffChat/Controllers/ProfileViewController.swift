@@ -8,18 +8,32 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var userImgView: UIImageView!
-    @IBOutlet weak var editBtn: UIButton!
-    @IBOutlet weak var editBtnView: UIView!
+    @IBOutlet weak var pictureView: UIView!
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var bioTextField: UITextField!
+    @IBOutlet weak var dataIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var gcdBtn: UIButton!
+    @IBOutlet weak var operationBtn: UIButton!
     
     var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nameTextField.delegate = self
+        bioTextField.delegate = self
         imagePicker.delegate = self
+        
+        GCDDataManager.readFromFile(completion: {
+            name, bio, photo in
+            self.nameTextField.text = name
+            self.bioTextField.text = bio
+            self.userImgView.image = photo
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,9 +44,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidAppear(animated)
     }
 
-    @IBAction func editAction(_ sender: Any) {
-    }
-    
     @IBAction func tappedOnCameraIcon(_ sender: Any) {
         print("Выбери изображение профиля")
         
@@ -71,6 +82,34 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         imagePicker.allowsEditing = true
         self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        pictureView.isHidden = false
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        pictureView.isHidden = true
+    }
+    
+    @IBAction func gcdPressed(_ sender: Any) {
+        dataIndicator.startAnimating()
+        gcdBtn.isEnabled = false
+        operationBtn.isEnabled = false
+        
+        if let name = nameTextField.text, let bio = bioTextField.text, let photo = userImgView.image {
+            GCDDataManager.saveToFile(name: name, bio: bio, photo: photo, completion: {
+                self.gcdBtn.isEnabled = true
+                self.operationBtn.isEnabled = true
+                self.dataIndicator.stopAnimating()
+            })
+        }
+    }
+    
+    @IBAction func operationPressed(_ sender: Any) {
+        dataIndicator.startAnimating()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
