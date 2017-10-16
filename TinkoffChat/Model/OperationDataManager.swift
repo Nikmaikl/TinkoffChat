@@ -6,15 +6,14 @@
 //  Copyright © 2017 Michael Nikolaev. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-//class OperationDataManager: DataManager {
-//    static func saveToFile() {
-//        
-//    }
-//    
-//    static func readFromFile() {
-//        
-//    }
-//}
+class OperationDataManager: DataManager {
+    static func saveToFile(name: String, bio:String, photo: UIImage, completion: @escaping () -> Void) {
+        
+    }
+    static func readFromFile(completion: @escaping (String, String, UIImage) -> Void) {
+        
+    }
+}
 
