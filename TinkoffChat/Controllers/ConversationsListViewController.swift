@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBrowserDelegate {
 
     @IBOutlet weak var conversationsTableView: UITableView!
     
     var onlineConversations = [Conversation]()
     var offlineConversations = [Conversation]()
+    
+    var peer = MCPeerID(displayName: UIDevice.current.identifierForVendor!.uuidString)
+    var session: MCSession!
+    var browser: MCBrowserViewController!
+    var assistant: MCAdvertiserAssistant!
+    var serviceAdvertiser : MCNearbyServiceAdvertiser!
+    var serviceBrowser : MCNearbyServiceBrowser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +30,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         conversationsTableView.delegate = self
         
         setUpConversations()
+        
     }
+    
+
     
     func setUpConversations() {
         onlineConversations.append(Conversation(name: "Artem", mesage: "Hello, I'm here!", date: Calendar.current.date(byAdding: .hour, value: -1, to: Date())!, online: true, hasUnreadMessages: true))
@@ -125,4 +136,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             }
         }
     }
+}
+
+extension ConversationsListViewController {
+    
 }
