@@ -9,19 +9,15 @@
 import UIKit
 import MultipeerConnectivity
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBrowserDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommunicationManagerDelegate {
 
     @IBOutlet weak var conversationsTableView: UITableView!
     
     var onlineConversations = [Conversation]()
     var offlineConversations = [Conversation]()
     
-    var peer = MCPeerID(displayName: UIDevice.current.identifierForVendor!.uuidString)
-    var session: MCSession!
-    var browser: MCBrowserViewController!
-    var assistant: MCAdvertiserAssistant!
-    var serviceAdvertiser : MCNearbyServiceAdvertiser!
-    var serviceBrowser : MCNearbyServiceBrowser!
+    var communicationManager = CommunicationManager()
+    let dataManager = GCDDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,35 +25,19 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         conversationsTableView.dataSource = self
         conversationsTableView.delegate = self
         
+        communicationManager.online = true
+        communicationManager.conversationsDelegate = self
+        
         setUpConversations()
         
     }
     
-
+    func setUpConversations() { }
     
-    func setUpConversations() {
-        onlineConversations.append(Conversation(name: "Artem", mesage: "Hello, I'm here!", date: Calendar.current.date(byAdding: .hour, value: -1, to: Date())!, online: true, hasUnreadMessages: true))
-        onlineConversations.append(Conversation(name: "Alexandr", mesage: nil, date: Calendar.current.date(byAdding: .hour, value: -6, to: Date())!, online: true, hasUnreadMessages: false))
-        onlineConversations.append(Conversation(name: "Michael", mesage: "I'm here!", date: Date(), online: true, hasUnreadMessages: false))
-        onlineConversations.append(Conversation(name: "Olga", mesage: "Hello", date: Calendar.current.date(byAdding: .hour, value: -9, to: Date())!, online: true, hasUnreadMessages: false))
-        onlineConversations.append(Conversation(name: "Ruslan", mesage: "I'm here!", date: Date(), online: true, hasUnreadMessages: true))
-        onlineConversations.append(Conversation(name: "Igor", mesage: "Hello, I'm here!", date: Calendar.current.date(byAdding: .hour, value: -10, to: Date())!, online: true, hasUnreadMessages: true))
-        onlineConversations.append(Conversation(name: "Kirill", mesage: "I'm here!", date: Calendar.current.date(byAdding: .hour, value: -2, to: Date())!, online: true, hasUnreadMessages: false))
-        onlineConversations.append(Conversation(name: "Ekaterina", mesage: "Hello!", date: Date(), online: true, hasUnreadMessages: false))
-        onlineConversations.append(Conversation(name: "Sasha", mesage: "I'm here!", date: Date(), online: true, hasUnreadMessages: true))
-        onlineConversations.append(Conversation(name: "Sasha", mesage: "Hello!", date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, online: true, hasUnreadMessages: true))
-        
-        offlineConversations.append(Conversation(name: "Masha", mesage: "Hello", date: Date(), online: false, hasUnreadMessages: true))
-        offlineConversations.append(Conversation(name: "Kola", mesage: "I'm here!", date: Date(), online: false, hasUnreadMessages: true))
-        offlineConversations.append(Conversation(name: "Artem", mesage: "Hello, I'm here!", date: Date(), online: false, hasUnreadMessages: false))
-        offlineConversations.append(Conversation(name: "Pasha", mesage: "Hello", date: Date(), online: false, hasUnreadMessages: false))
-        offlineConversations.append(Conversation(name: "Natan", mesage: "I'm here!", date: Date(), online: false, hasUnreadMessages: true))
-        offlineConversations.append(Conversation(name: "Jimmmy", mesage: "Hello, I'm here!", date: Date(), online: false, hasUnreadMessages: true))
-        offlineConversations.append(Conversation(name: "Lola", mesage: "Hello", date: Date(), online: false, hasUnreadMessages: false))
-        offlineConversations.append(Conversation(name: "Ekaterina", mesage: "I'm here!", date: Date(), online: false, hasUnreadMessages: false))
-        offlineConversations.append(Conversation(name: "Arkadiy", mesage: "Hello, I'm here!", date: Date(), online: false, hasUnreadMessages: true))
-        offlineConversations.append(Conversation(name: "Mosha", mesage: "Hello!", date: Date(), online: false, hasUnreadMessages: true))
-        
+    func shouldReload() {
+        DispatchQueue.main.async {
+            self.conversationsTableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,9 +52,9 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return onlineConversations.count
+            return communicationManager.onlineConversations.count
         case 1:
-            return offlineConversations.count
+            return communicationManager.historyConversations.count
         default:
             return 0
         }
@@ -84,9 +64,9 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         var conversations = [Conversation]()
         
         if indexPath.section == 0 { // Online users
-            conversations = onlineConversations
+            conversations = communicationManager.onlineConversations
         } else if indexPath.section == 1 { // History
-            conversations = offlineConversations
+            conversations = communicationManager.historyConversations
         }
         
         let conversation = conversations[indexPath.row]
@@ -121,9 +101,9 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         var titleForVC: String? = nil
         if indexPath.section == 0 {
-            titleForVC = onlineConversations[indexPath.row].name
+            titleForVC = communicationManager.onlineConversations[indexPath.row].name
         } else if indexPath.section == 1 {
-            titleForVC = offlineConversations[indexPath.row].name
+            titleForVC = communicationManager.historyConversations[indexPath.row].name
         }
         
         performSegue(withIdentifier: "OpenConversation", sender: titleForVC)
@@ -136,8 +116,4 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             }
         }
     }
-}
-
-extension ConversationsListViewController {
-    
 }

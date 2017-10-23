@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -261,7 +261,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nSG-U0-lL9">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomingMessage" rowHeight="105" id="zdu-Ep-TJv" customClass="MessageTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
@@ -320,18 +320,50 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0p-uX-uOp">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Send message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FZ5-5q-s3A">
+                                        <rect key="frame" x="8" y="10" width="315" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97r-Kp-TRP">
+                                        <rect key="frame" x="331" y="10" width="36" height="30"/>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendMsgPressed:" destination="YuX-Qe-KoM" eventType="touchUpInside" id="a2S-VI-29C"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="FZ5-5q-s3A" firstAttribute="top" secondItem="L0p-uX-uOp" secondAttribute="top" constant="10" id="5dU-BP-zfd"/>
+                                    <constraint firstItem="97r-Kp-TRP" firstAttribute="top" secondItem="L0p-uX-uOp" secondAttribute="top" constant="10" id="W77-bk-6Pw"/>
+                                    <constraint firstItem="97r-Kp-TRP" firstAttribute="leading" secondItem="FZ5-5q-s3A" secondAttribute="trailing" constant="8" id="XLq-EV-936"/>
+                                    <constraint firstItem="FZ5-5q-s3A" firstAttribute="leading" secondItem="L0p-uX-uOp" secondAttribute="leading" constant="8" id="cdr-0L-cYZ"/>
+                                    <constraint firstAttribute="height" constant="50" id="xa2-qY-2HZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="97r-Kp-TRP" secondAttribute="trailing" constant="8" id="y6D-0V-cw2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="nSG-U0-lL9" firstAttribute="bottom" secondItem="kaA-24-JIv" secondAttribute="bottom" id="5Na-vG-K4F"/>
                             <constraint firstItem="nSG-U0-lL9" firstAttribute="leading" secondItem="kaA-24-JIv" secondAttribute="leading" id="ElC-mi-Llf"/>
+                            <constraint firstItem="L0p-uX-uOp" firstAttribute="bottom" secondItem="kaA-24-JIv" secondAttribute="bottom" id="GyG-jM-Cd2"/>
+                            <constraint firstItem="L0p-uX-uOp" firstAttribute="leading" secondItem="kaA-24-JIv" secondAttribute="leading" id="RaU-ua-yv2"/>
+                            <constraint firstItem="L0p-uX-uOp" firstAttribute="top" secondItem="nSG-U0-lL9" secondAttribute="bottom" id="aen-Jb-arQ"/>
                             <constraint firstItem="nSG-U0-lL9" firstAttribute="top" secondItem="kaA-24-JIv" secondAttribute="top" id="awC-A5-aZh"/>
                             <constraint firstItem="kaA-24-JIv" firstAttribute="trailing" secondItem="nSG-U0-lL9" secondAttribute="trailing" id="cip-et-hjM"/>
+                            <constraint firstItem="L0p-uX-uOp" firstAttribute="trailing" secondItem="kaA-24-JIv" secondAttribute="trailing" id="g0J-F0-maH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kaA-24-JIv"/>
                     </view>
                     <connections>
+                        <outlet property="bottomBarHeightConstraint" destination="xa2-qY-2HZ" id="7KM-LR-nkH"/>
                         <outlet property="conversationTableView" destination="nSG-U0-lL9" id="4z7-yq-P1V"/>
+                        <outlet property="sendMsgTextField" destination="FZ5-5q-s3A" id="tpi-RU-a6R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wp8-sz-xkS" userLabel="First Responder" sceneMemberID="firstResponder"/>
