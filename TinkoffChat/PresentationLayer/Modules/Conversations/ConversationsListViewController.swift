@@ -9,14 +9,14 @@
 import UIKit
 import MultipeerConnectivity
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommunicationManagerDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommunicationServiceDelegate {
 
     @IBOutlet weak var conversationsTableView: UITableView!
     
     var onlineConversations = [Conversation]()
     var offlineConversations = [Conversation]()
     
-    var communicationManager = CommunicationManager()
+    var communicationManager = CommunicationService()
     let dataManager = GCDDataManager()
     
     override func viewDidLoad() {

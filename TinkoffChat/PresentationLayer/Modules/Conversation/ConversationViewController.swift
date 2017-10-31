@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CommunicationManagerDelegate{
+class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CommunicationServiceDelegate{
 
     @IBOutlet weak var conversationTableView: UITableView!
     @IBOutlet weak var sendMsgTextField: UITextField!
@@ -16,14 +16,14 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     var messages = [Message]()
     
-    var communicationManager: CommunicationManager!
+    var communicationManager: CommunicationService!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpMessages()
         
-        communicationManager = CommunicationManager()
+        communicationManager = CommunicationService()
         
         communicationManager.conversationDelegate = self
         

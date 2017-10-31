@@ -1,5 +1,5 @@
 //
-//  CommunicationManager.swift
+//  CommunicationService.swift
 //  TinkoffChat
 //
 //  Created by Michael Nikolaev on 22.10.2017.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol CommunicationManagerDelegate: class {
+protocol CommunicationServiceDelegate: class {
     func shouldReload()
 }
 
 
-class CommunicationManager: CommunicatorDelegate {
+class CommunicationService: CommunicatorDelegate {
     
     var onlineConversations: [Conversation] = []
     
@@ -30,13 +30,13 @@ class CommunicationManager: CommunicatorDelegate {
             }
         }
     }
-    weak var conversationDelegate: CommunicationManagerDelegate?
+    weak var conversationDelegate: CommunicationServiceDelegate?
 
     
     let conversationsHeadersTitle = ["Online", "History"]
     
     
-    weak var conversationsDelegate: CommunicationManagerDelegate?
+    weak var conversationsDelegate: CommunicationServiceDelegate?
     
     init() {
         communicator.delegate = self
