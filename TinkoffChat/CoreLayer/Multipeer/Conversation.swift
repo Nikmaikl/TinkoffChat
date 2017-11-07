@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 struct Conversation {
     var name: String?

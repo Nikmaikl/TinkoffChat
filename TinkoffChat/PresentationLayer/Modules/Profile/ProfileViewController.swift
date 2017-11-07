@@ -21,6 +21,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var imagePicker = UIImagePickerController()
     
+    let profileService = ProfileService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +35,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.nameTextField.text = name
             self.bioTextField.text = bio
             self.userImgView.image = photo
+        })
+        
+        profileService.getProfile(completion: {
+            profile in
+            
+            if let name = profile.name {
+                self.nameTextField.text = name
+            }
+            
+            if let descr = profile.description {
+                self.bioTextField.text = descr
+            }
+            
+            if let photo = profile.photo {
+                self.userImgView.image = photo
+            }
         })
     }
     
@@ -67,6 +85,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         {
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.allowsEditing = true
+
             self.present(imagePicker, animated: true, completion: nil)
         }
         else
@@ -108,6 +127,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    @IBAction func nameTFChanged(_ sender: Any) {
+        profileService.saveProfile(name: nameTextField.text, description: bioTextField.text, photo: userImgView.image)
+    }
+    
+    @IBAction func descrTFChanged(_ sender: Any) {
+        profileService.saveProfile(name: nameTextField.text, description: bioTextField.text, photo: userImgView.image)
+    }
+    
     @IBAction func operationPressed(_ sender: Any) {
         dataIndicator.startAnimating()
     }
@@ -116,6 +143,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         userImgView.image = chosenImage
+        profileService.saveProfile(name: nameTextField.text, description: bioTextField.text, photo: chosenImage)
         
         dismiss(animated: true, completion: nil)
     }
