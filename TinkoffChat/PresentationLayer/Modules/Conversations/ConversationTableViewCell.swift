@@ -34,7 +34,7 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
     
     func configure(conversation: Conversation) {
         name = conversation.name
-        message = conversation.mesage
+        message = conversation.message
         date = conversation.date
         online = conversation.online
         hasUnreadMessages = conversation.hasUnreadMessages

@@ -9,12 +9,12 @@
 import UIKit
 import CoreData
 
-struct Conversation {
-    var name: String?
-    var id: String?
-    var mesage: String?
-    var date: Date?
-    var online: Bool
-    var hasUnreadMessages: Bool
-    var messages: [Message]
+extension Conversation {
+//    var name: String?
+//    var id: String?
+//    var mesage: String?
+//    var date: Date?
+//    var online: Bool
+//    var hasUnreadMessages: Bool
+//    var messages: [Message]
 }

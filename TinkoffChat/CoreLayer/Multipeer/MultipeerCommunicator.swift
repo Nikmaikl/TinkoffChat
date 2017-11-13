@@ -118,13 +118,13 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCNearbyService
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        do {
-            var message = try JSONDecoder().decode(Message.self, from: data)
-            message.incoming = true
-            delegate?.didReceiveMessage(text: message.text!, fromUser: peerID.displayName, toUser: ownPeerID.displayName)
-        } catch {
-            return
-        }
+//        do {
+//            var message = try JSONDecoder().decode(Message.self, from: data)
+//            message.incoming = true
+//            delegate?.didReceiveMessage(text: message.text!, fromUser: peerID.displayName, toUser: ownPeerID.displayName)
+//        } catch {
+//            return
+//        }
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {

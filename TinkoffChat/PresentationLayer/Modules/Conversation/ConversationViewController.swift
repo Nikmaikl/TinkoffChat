@@ -76,7 +76,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func sendMsgPressed(_ sender: Any) {
-        messages.append(Message(text: sendMsgTextField.text, incoming: false))
+//        messages.append(Message(text: sendMsgTextField.text, incoming: false))
         self.sendMsgTextField.text = ""
         self.conversationTableView.reloadData()
     }

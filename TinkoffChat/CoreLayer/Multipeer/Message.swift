@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-struct Message: Codable {
-    var text: String?
-    var incoming: Bool
+extension Message {
+//    var text: String?
+//    var incoming: Bool
     
 
     private static func generateMessageId() -> String {

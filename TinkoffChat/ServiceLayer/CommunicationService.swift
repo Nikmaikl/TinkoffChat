@@ -69,9 +69,9 @@ class CommunicationService: CommunicatorDelegate {
                 return
             }
         }
-        let newConversation = Conversation(name: userID, id: userName ?? "Unknown", mesage: nil, date: Date(), online: true, hasUnreadMessages: false, messages: [])
+//        let newConversation = Conversation(name: userID, id: userName ?? "Unknown", mesage: nil, date: Date(), online: true, hasUnreadMessages: false, messages: [])
         
-        onlineConversations.append(newConversation)
+//        onlineConversations.append(newConversation)
         
         self.conversationsDelegate?.shouldReload()
     }
@@ -91,7 +91,7 @@ class CommunicationService: CommunicatorDelegate {
     }
     
     func didReceiveMessage(text: String, fromUser: String, toUser: String) {
-        let newMessage = Message(text: text, incoming: true)
+//        let newMessage = Message(text: text, incoming: true)
         var inConversation: Conversation? = nil
         for conv in onlineConversations {
             if conv.id == fromUser {
@@ -99,7 +99,7 @@ class CommunicationService: CommunicatorDelegate {
                 break
             }
         }
-        inConversation?.messages.append(newMessage)
+//        inConversation?.messages.append(newMessage)
         inConversation?.hasUnreadMessages = true
         DispatchQueue.main.async {
             self.conversationDelegate?.shouldReload()
