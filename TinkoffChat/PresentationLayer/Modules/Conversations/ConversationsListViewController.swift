@@ -19,6 +19,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     var communicationManager = CommunicationService()
     let dataManager = GCDDataManager()
     
+    var conversationManager: ConversationDataManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
