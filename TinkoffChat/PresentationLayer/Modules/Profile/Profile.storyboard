@@ -185,11 +185,20 @@
                         <outlet property="nameTextField" destination="dGU-cd-6ND" id="OQN-hh-xOB"/>
                         <outlet property="pictureView" destination="eHG-cG-oLC" id="kbc-0A-Mhi"/>
                         <outlet property="userImgView" destination="jsd-n6-Rw2" id="Iic-6b-2bj"/>
+                        <segue destination="JbZ-6c-rV7" kind="presentation" identifier="webImages" id="c5z-Pw-gaA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B0Q-Lq-9Vz" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-100" y="2219"/>
+        </scene>
+        <!--WebImages-->
+        <scene sceneID="ECf-be-wSN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="WebImages" id="JbZ-6c-rV7" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rMF-yH-2ge" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="483" y="1946"/>
         </scene>
     </scenes>
     <resources>

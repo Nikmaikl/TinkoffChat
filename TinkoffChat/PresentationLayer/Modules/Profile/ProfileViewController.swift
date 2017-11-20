@@ -73,10 +73,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         cameraAlert.addAction(UIAlertAction(title: "Сделать фото", style: .default) { (action:UIAlertAction!) in
             self.takeAPhoto()
         })
+        cameraAlert.addAction(UIAlertAction(title: "Загрузить из сети", style: .default) { (action:UIAlertAction!) in
+            self.loadFromWeb()
+        })
         cameraAlert.addAction(UIAlertAction(title: "Отменить", style: .cancel) { (action:UIAlertAction!) in
         })
         
         self.present(cameraAlert, animated: true)
+    }
+    
+    func loadFromWeb() {
+        self.performSegue(withIdentifier: "webImages", sender: nil)
     }
     
     func takeAPhoto()
