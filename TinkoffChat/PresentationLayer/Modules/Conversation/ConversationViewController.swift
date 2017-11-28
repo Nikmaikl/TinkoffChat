@@ -10,6 +10,7 @@ import UIKit
 
 class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CommunicationServiceDelegate{
 
+    @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var conversationTableView: UITableView!
     @IBOutlet weak var sendMsgTextField: UITextField!
     @IBOutlet weak var bottomBarHeightConstraint: NSLayoutConstraint!
@@ -20,6 +21,8 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sendBtn.tintColor = UIColor.lightGray
 
         setUpMessages()
         
@@ -79,6 +82,27 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
 //        messages.append(Message(text: sendMsgTextField.text, incoming: false))
         self.sendMsgTextField.text = ""
         self.conversationTableView.reloadData()
+    }
+    
+    @IBAction func textFieldChanged(_ sender: Any) {
+        if sendMsgTextField.text == "" { return }
+        
+        if self.sendBtn.tintColor != UIColor.blue {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.sendBtn.setTitleColor(UIColor.blue, for: .normal)
+            
+            }, completion: {
+                finished in
+                UIView.animate(withDuration: 0.5, animations: {
+                   self.sendBtn.layer.setAffineTransform(CGAffineTransform(scaleX: 0.15, y: 0.15))
+                    
+                }, completion: {
+                    finished in
+                    self.sendBtn.layer.setAffineTransform(CGAffineTransform(scaleX: 1.0, y: 1.0))
+                })
+            })
+        }
+
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
